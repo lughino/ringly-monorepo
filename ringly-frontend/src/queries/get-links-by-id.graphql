@@ -1,0 +1,8 @@
+query getLinksByPk($ids: [uuid!]) {
+  link(where: { id: { _in: $ids } }) {
+    domain_id
+    id
+    shortLink
+    label
+  }
+}

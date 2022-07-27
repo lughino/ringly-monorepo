@@ -1,0 +1,22 @@
+overwrite: true
+config:
+  scalars:
+    ID: string
+    uuid: string
+    jsonb: any
+    timestamptz: string
+schema:
+  - ${GQL_ENDPOINT}:
+      headers:
+        'x-hasura-admin-secret': ${GQL_ACCESS_TOKEN}
+documents:
+  - 'app/**/*.graphql'
+  - 'app/**/*.tsx'
+  - 'src/**/*.tsx'
+  - 'src/**/*.graphql'
+generates:
+  src/generated/schema.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'

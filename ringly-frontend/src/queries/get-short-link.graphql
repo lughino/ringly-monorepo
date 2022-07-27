@@ -1,0 +1,13 @@
+query getLinkByShortLink($shortLink: String) {
+  link(where: { shortLink: { _eq: $shortLink } }) {
+    id
+    attributes
+    destinationLink
+    domain_id
+    expireAt
+    kind
+    shortLink
+    variablePassing
+    tenant_id
+  }
+}
