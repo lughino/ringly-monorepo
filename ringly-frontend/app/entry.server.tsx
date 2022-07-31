@@ -2,8 +2,7 @@ import type { EntryContext } from '@remix-run/node';
 import { RemixServer } from '@remix-run/react';
 import { renderToString } from 'react-dom/server';
 import { helmetData } from '../src/components/helmet';
-
-const TITLE_REGEX = /<title.*>(.*)<\/title>/;
+import { TITLE_REGEX } from 'src/utils';
 
 export default function handleRequest(
   request: Request,

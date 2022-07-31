@@ -1,0 +1,17 @@
+mutation updateLinkAttributes($id: uuid!, $attributes: jsonb) {
+  update_link_by_pk(pk_columns: { id: $id }, _append: { attributes: $attributes }) {
+    attributes
+    destinationLink
+    domain_id
+    expireAt
+    id
+    kind
+    createdAt
+    shortLink
+    updatedAt
+    variablePassing
+    label
+    title
+    cta_id
+  }
+}

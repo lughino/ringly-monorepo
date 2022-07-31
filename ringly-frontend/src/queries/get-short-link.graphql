@@ -8,6 +8,6 @@ query getLinkByShortLink($shortLink: String) {
     kind
     shortLink
     variablePassing
-    tenant_id
+    cta_id
   }
 }

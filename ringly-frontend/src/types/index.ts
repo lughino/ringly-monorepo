@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { GetLinkByShortLinkQuery, GetLinksByPkQuery } from '../client';
+import type { GetLinkByShortLinkQuery, GetLinksByPkQuery, GetCtaByIdQuery } from '../client';
 
 export interface EnvVariables {
   DEFAULT_DOMAIN_URL: string;
@@ -9,7 +9,7 @@ export interface RedirectAttributes {
   code: number;
 }
 
-export interface LinkInBioLink {
+export interface LinkInBioAttributesLink {
   id: string;
   order: number;
   enabled: boolean;
@@ -32,7 +32,7 @@ export interface LinkInBioButtons {
   buttonTextColor: CSSProperties['color'];
 }
 
-export interface LinkInBioAttributes<T = LinkInBioLink> {
+export interface LinkInBioAttributes<T = LinkInBioAttributesLink> {
   font: {
     size: string;
     family: string;
@@ -65,17 +65,66 @@ export interface LinkInBioAttributes<T = LinkInBioLink> {
   hideRinglyLogo: boolean;
 }
 
+export interface CtaMetaData {
+  title: { text: string };
+  meta: Record<string, string>[];
+  favicon: Record<string, string>[];
+  lastUpdate: Date;
+}
+
+export interface CtaAttributes {
+  destinationLinkMetadata: CtaMetaData;
+}
+
 export interface DataLink<T = unknown>
   extends Omit<GetLinkByShortLinkQuery['link'][0], 'attributes'> {
   attributes: T;
 }
 
-export type LinkInBio = DataLink<LinkInBioAttributes<LinkInBioLink>>;
+export type CtaLink = DataLink<CtaAttributes>;
 
-export interface LoaderDataLinkInBio {
-  link: DataLink<LinkInBioAttributes<GetLinksByPkQuery['link'][0] & LinkInBioLink>>;
+export interface CtaData<T = unknown> extends Omit<GetCtaByIdQuery['cta_by_pk'], 'attributes'> {
+  attributes: T;
 }
 
+export interface CtaStyle {
+  theme: 'baloon' | 'full-width' | 'social' | 'candy';
+  textColor: CSSProperties['color'];
+  buttonColor: CSSProperties['color'];
+  hideRinglyLogo: boolean;
+  backgroundColor: CSSProperties['color'];
+  buttonTextColor: CSSProperties['color'];
+  position:
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'center-left'
+    | 'center-right'
+    | 'top-full-width'
+    | 'bottom-full-width';
+}
+
+export type CtaDataButton = CtaData<{
+  style: CtaStyle;
+  message: string;
+  url: string;
+  text: string;
+}>;
+
+export interface LoaderDataCta {
+  link: CtaLink;
+  cta: CtaDataButton;
+}
+
+export type LinkInBioLink = DataLink<LinkInBioAttributes<LinkInBioAttributesLink>>;
+
+export interface LoaderDataLinkInBio {
+  link: DataLink<LinkInBioAttributes<GetLinksByPkQuery['link'][0] & LinkInBioAttributesLink>>;
+}
+
+export type RedirectLink = DataLink<RedirectAttributes>;
+
 export interface LoaderDataRedirect {
-  link: DataLink<RedirectAttributes>;
+  link: RedirectLink;
 }

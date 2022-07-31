@@ -1,0 +1,15 @@
+query getCtaById($id: uuid!) {
+  cta_by_pk(id: $id) {
+    archived_at
+    attributes
+    created_at
+    id
+    kind
+    updated_at
+    brand {
+      image_url
+      url
+      name
+    }
+  }
+}
