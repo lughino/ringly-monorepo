@@ -59,7 +59,7 @@ export function CtaBanner({ cta }: Props) {
       )),
     ],
     // @ts-ignore
-    [R.equals(Kind_Cta_Enum.Text), R.always(() => null)],
+    [R.equals(Kind_Cta_Enum.Hidden), R.always(() => null)],
   ])(cta.kind) as React.FC;
 
   return <CtaComponent />;

@@ -6,11 +6,32 @@ interface Props {
   data: LoaderDataCta;
 }
 
+const getFullWidthStyle = (style: LoaderDataCta['cta']['attributes']['style']) => {
+  switch (style.position) {
+    case 'top-full-width':
+      return {
+        top: '52.5px !important',
+        height: 'calc(100% - 52.5px) !important',
+        minHeight: 'calc(100% - 52.5px) !important',
+      };
+    case 'bottom-full-width':
+      return {
+        bottom: '52.5px !important',
+        height: 'calc(100% - 52.5px) !important',
+        minHeight: 'calc(100% - 52.5px) !important',
+      };
+    default:
+      return null;
+  }
+};
+
 export function Cta({ data: { link, cta } }: Props) {
   const {
     attributes: { destinationLinkMetadata },
     destinationLink,
   } = link;
+  const fullWidthStyle =
+    cta.attributes.style.theme === 'full-width' ? getFullWidthStyle(cta.attributes.style) : null;
 
   return (
     <>
@@ -34,9 +55,8 @@ export function Cta({ data: { link, cta } }: Props) {
       <iframe
         src={destinationLink!}
         className="absolute left-0 top-0 right-0 bottom-0 w-full h-full min-w-full min-h-full border-none border-0 overflow-x-auto"
-        // @ts-ignore
-        style={{ WebkitOverflowScrolling: 'touch' }}
-        title="ContentFrame"
+        style={{ WebkitOverflowScrolling: 'touch', ...fullWidthStyle }}
+        title="SiteFrame"
       ></iframe>
       <CtaBanner cta={cta} />
     </>
