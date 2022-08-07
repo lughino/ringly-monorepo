@@ -8,6 +8,18 @@ query getLinkByShortLink($shortLink: String) {
     kind
     shortLink
     variablePassing
+    add_utm
     cta_id
+    brand_id
+    brand {
+      utm {
+        source
+        medium
+        campaign
+        term
+        content
+        overridable
+      }
+    }
   }
 }

@@ -4,6 +4,7 @@ import type { Kind_Cta_Enum } from 'src/client';
 import { positionClasses } from '../styles';
 import { ActionSection } from './action-section.style';
 import { TextSection } from './text-section.style';
+import { generateUTMUrl } from 'src/utils';
 
 interface Props {
   cta: CtaDataButton | CtaDataForm;
@@ -40,7 +41,7 @@ export function CtaButton({
           <div className="flex">
             <a
               className="border-none pointer-events-auto shadow-none outline-none"
-              href={brand.url}
+              href={generateUTMUrl(brand.url, brand.utm!)}
               target="_blank"
               rel="noreferrer"
             >
@@ -56,13 +57,19 @@ export function CtaButton({
               <a
                 target="_blank"
                 rel="noreferrer"
-                href={brand.url}
+                href={generateUTMUrl(brand.url, brand.utm!)}
                 className="text-left opacity-60 overflow-hidden whitespace-nowrap uppercase text-sm leading-5"
               >
                 {brand.name}
               </a>
             </div>
-            <TextSection ctaAttributes={attributes} kind={kind} ctaId={id} linkId={linkId} />
+            <TextSection
+              ctaAttributes={attributes}
+              brand={brand}
+              kind={kind}
+              ctaId={id}
+              linkId={linkId}
+            />
             <ActionSection style={style} clickLogo={clickLogo} closeBanner={closeBanner} />
           </div>
         </div>
@@ -80,7 +87,7 @@ export function CtaButton({
         <div className="flex">
           <a
             className="border-none pointer-events-auto shadow-none rounded-[50px] outline-none"
-            href={brand.url}
+            href={generateUTMUrl(brand.url, brand.utm!)}
             target="_blank"
             rel="noreferrer"
           >
@@ -96,14 +103,20 @@ export function CtaButton({
             <a
               target="_blank"
               rel="noreferrer"
-              href={brand.url}
+              href={generateUTMUrl(brand.url, brand.utm!)}
               className="text-left opacity-60 overflow-hidden whitespace-nowrap uppercase text-xs leading-5"
             >
               {brand.name}
             </a>
             <ActionSection style={style} clickLogo={clickLogo} closeBanner={closeBanner} />
           </div>
-          <TextSection ctaAttributes={attributes} kind={kind} ctaId={id} linkId={linkId} />
+          <TextSection
+            ctaAttributes={attributes}
+            brand={brand}
+            kind={kind}
+            ctaId={id}
+            linkId={linkId}
+          />
         </div>
       </div>
     </div>

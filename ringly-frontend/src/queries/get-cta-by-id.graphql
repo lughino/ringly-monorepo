@@ -10,6 +10,14 @@ query getCtaById($id: uuid!) {
       image_url
       url
       name
+      utm {
+        source
+        medium
+        campaign
+        term
+        content
+        overridable
+      }
     }
   }
 }

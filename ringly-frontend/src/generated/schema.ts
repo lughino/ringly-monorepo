@@ -101,6 +101,8 @@ export type Brand = {
   tenant_id: Scalars['uuid'];
   updated_at: Scalars['timestamptz'];
   url: Scalars['String'];
+  /** An object relationship */
+  utm?: Maybe<Utm>;
 };
 
 
@@ -196,6 +198,7 @@ export type Brand_Bool_Exp = {
   tenant_id?: InputMaybe<Uuid_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   url?: InputMaybe<String_Comparison_Exp>;
+  utm?: InputMaybe<Utm_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "brand" */
@@ -218,6 +221,7 @@ export type Brand_Insert_Input = {
   tenant_id?: InputMaybe<Scalars['uuid']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
   url?: InputMaybe<Scalars['String']>;
+  utm?: InputMaybe<Utm_Obj_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -307,6 +311,7 @@ export type Brand_Order_By = {
   tenant_id?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   url?: InputMaybe<Order_By>;
+  utm?: InputMaybe<Utm_Order_By>;
 };
 
 /** primary key columns input for table: brand */
@@ -1266,6 +1271,7 @@ export enum Kind_Link_Update_Column {
 /** The core table of the application that stores the information related to the links */
 export type Link = {
   __typename?: 'link';
+  add_utm: Scalars['Boolean'];
   archived_at?: Maybe<Scalars['timestamptz']>;
   attributes: Scalars['jsonb'];
   /** An object relationship */
@@ -1367,6 +1373,7 @@ export type Link_Bool_Exp = {
   _and?: InputMaybe<Array<Link_Bool_Exp>>;
   _not?: InputMaybe<Link_Bool_Exp>;
   _or?: InputMaybe<Array<Link_Bool_Exp>>;
+  add_utm?: InputMaybe<Boolean_Comparison_Exp>;
   archived_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   attributes?: InputMaybe<Jsonb_Comparison_Exp>;
   brand?: InputMaybe<Brand_Bool_Exp>;
@@ -1414,6 +1421,7 @@ export type Link_Delete_Key_Input = {
 
 /** input type for inserting data into table "link" */
 export type Link_Insert_Input = {
+  add_utm?: InputMaybe<Scalars['Boolean']>;
   archived_at?: InputMaybe<Scalars['timestamptz']>;
   attributes?: InputMaybe<Scalars['jsonb']>;
   brand?: InputMaybe<Brand_Obj_Rel_Insert_Input>;
@@ -1527,6 +1535,7 @@ export type Link_On_Conflict = {
 
 /** Ordering options when selecting data from "link". */
 export type Link_Order_By = {
+  add_utm?: InputMaybe<Order_By>;
   archived_at?: InputMaybe<Order_By>;
   attributes?: InputMaybe<Order_By>;
   brand?: InputMaybe<Brand_Order_By>;
@@ -1562,6 +1571,8 @@ export type Link_Prepend_Input = {
 /** select columns of table "link" */
 export enum Link_Select_Column {
   /** column name */
+  AddUtm = 'add_utm',
+  /** column name */
   ArchivedAt = 'archived_at',
   /** column name */
   Attributes = 'attributes',
@@ -1595,6 +1606,7 @@ export enum Link_Select_Column {
 
 /** input type for updating data in table "link" */
 export type Link_Set_Input = {
+  add_utm?: InputMaybe<Scalars['Boolean']>;
   archived_at?: InputMaybe<Scalars['timestamptz']>;
   attributes?: InputMaybe<Scalars['jsonb']>;
   brand_id?: InputMaybe<Scalars['uuid']>;
@@ -1614,6 +1626,8 @@ export type Link_Set_Input = {
 
 /** update columns of table "link" */
 export enum Link_Update_Column {
+  /** column name */
+  AddUtm = 'add_utm',
   /** column name */
   ArchivedAt = 'archived_at',
   /** column name */
@@ -1890,6 +1904,10 @@ export type Mutation_Root = {
   delete_user?: Maybe<User_Mutation_Response>;
   /** delete single row from the table: "user" */
   delete_user_by_pk?: Maybe<User>;
+  /** delete data from the table: "utm" */
+  delete_utm?: Maybe<Utm_Mutation_Response>;
+  /** delete single row from the table: "utm" */
+  delete_utm_by_pk?: Maybe<Utm>;
   /** insert data into the table: "brand" */
   insert_brand?: Maybe<Brand_Mutation_Response>;
   /** insert a single row into the table: "brand" */
@@ -1930,6 +1948,10 @@ export type Mutation_Root = {
   insert_user?: Maybe<User_Mutation_Response>;
   /** insert a single row into the table: "user" */
   insert_user_one?: Maybe<User>;
+  /** insert data into the table: "utm" */
+  insert_utm?: Maybe<Utm_Mutation_Response>;
+  /** insert a single row into the table: "utm" */
+  insert_utm_one?: Maybe<Utm>;
   /** update data of the table: "brand" */
   update_brand?: Maybe<Brand_Mutation_Response>;
   /** update single row of the table: "brand" */
@@ -1970,6 +1992,10 @@ export type Mutation_Root = {
   update_user?: Maybe<User_Mutation_Response>;
   /** update single row of the table: "user" */
   update_user_by_pk?: Maybe<User>;
+  /** update data of the table: "utm" */
+  update_utm?: Maybe<Utm_Mutation_Response>;
+  /** update single row of the table: "utm" */
+  update_utm_by_pk?: Maybe<Utm>;
 };
 
 
@@ -2089,6 +2115,18 @@ export type Mutation_RootDelete_UserArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_User_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_UtmArgs = {
+  where: Utm_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Utm_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -2230,6 +2268,20 @@ export type Mutation_RootInsert_UserArgs = {
 export type Mutation_RootInsert_User_OneArgs = {
   object: User_Insert_Input;
   on_conflict?: InputMaybe<User_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_UtmArgs = {
+  objects: Array<Utm_Insert_Input>;
+  on_conflict?: InputMaybe<Utm_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Utm_OneArgs = {
+  object: Utm_Insert_Input;
+  on_conflict?: InputMaybe<Utm_On_Conflict>;
 };
 
 
@@ -2394,6 +2446,20 @@ export type Mutation_RootUpdate_User_By_PkArgs = {
   pk_columns: User_Pk_Columns_Input;
 };
 
+
+/** mutation root */
+export type Mutation_RootUpdate_UtmArgs = {
+  _set?: InputMaybe<Utm_Set_Input>;
+  where: Utm_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Utm_By_PkArgs = {
+  _set?: InputMaybe<Utm_Set_Input>;
+  pk_columns: Utm_Pk_Columns_Input;
+};
+
 /** column ordering options */
 export enum Order_By {
   /** in ascending order, nulls last */
@@ -2472,6 +2538,12 @@ export type Query_Root = {
   user_aggregate: User_Aggregate;
   /** fetch data from the table: "user" using primary key columns */
   user_by_pk?: Maybe<User>;
+  /** fetch data from the table: "utm" */
+  utm: Array<Utm>;
+  /** fetch aggregated fields from the table: "utm" */
+  utm_aggregate: Utm_Aggregate;
+  /** fetch data from the table: "utm" using primary key columns */
+  utm_by_pk?: Maybe<Utm>;
 };
 
 
@@ -2704,6 +2776,29 @@ export type Query_RootUser_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
+export type Query_RootUtmArgs = {
+  distinct_on?: InputMaybe<Array<Utm_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Utm_Order_By>>;
+  where?: InputMaybe<Utm_Bool_Exp>;
+};
+
+
+export type Query_RootUtm_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Utm_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Utm_Order_By>>;
+  where?: InputMaybe<Utm_Bool_Exp>;
+};
+
+
+export type Query_RootUtm_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "brand" */
@@ -2766,6 +2861,12 @@ export type Subscription_Root = {
   user_aggregate: User_Aggregate;
   /** fetch data from the table: "user" using primary key columns */
   user_by_pk?: Maybe<User>;
+  /** fetch data from the table: "utm" */
+  utm: Array<Utm>;
+  /** fetch aggregated fields from the table: "utm" */
+  utm_aggregate: Utm_Aggregate;
+  /** fetch data from the table: "utm" using primary key columns */
+  utm_by_pk?: Maybe<Utm>;
 };
 
 
@@ -2995,6 +3096,29 @@ export type Subscription_RootUser_AggregateArgs = {
 
 
 export type Subscription_RootUser_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootUtmArgs = {
+  distinct_on?: InputMaybe<Array<Utm_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Utm_Order_By>>;
+  where?: InputMaybe<Utm_Bool_Exp>;
+};
+
+
+export type Subscription_RootUtm_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Utm_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Utm_Order_By>>;
+  where?: InputMaybe<Utm_Bool_Exp>;
+};
+
+
+export type Subscription_RootUtm_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -3715,6 +3839,217 @@ export enum User_Update_Column {
   UpdatedAt = 'updatedAt'
 }
 
+/** A table containing the utm parameters settings to attach as defaul in each brand */
+export type Utm = {
+  __typename?: 'utm';
+  /** An object relationship */
+  brand: Brand;
+  brand_id: Scalars['uuid'];
+  campaign?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  created_at: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  medium?: Maybe<Scalars['String']>;
+  overridable: Scalars['Boolean'];
+  source?: Maybe<Scalars['String']>;
+  term?: Maybe<Scalars['String']>;
+  updated_at: Scalars['timestamptz'];
+};
+
+/** aggregated selection of "utm" */
+export type Utm_Aggregate = {
+  __typename?: 'utm_aggregate';
+  aggregate?: Maybe<Utm_Aggregate_Fields>;
+  nodes: Array<Utm>;
+};
+
+/** aggregate fields of "utm" */
+export type Utm_Aggregate_Fields = {
+  __typename?: 'utm_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Utm_Max_Fields>;
+  min?: Maybe<Utm_Min_Fields>;
+};
+
+
+/** aggregate fields of "utm" */
+export type Utm_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Utm_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "utm". All fields are combined with a logical 'AND'. */
+export type Utm_Bool_Exp = {
+  _and?: InputMaybe<Array<Utm_Bool_Exp>>;
+  _not?: InputMaybe<Utm_Bool_Exp>;
+  _or?: InputMaybe<Array<Utm_Bool_Exp>>;
+  brand?: InputMaybe<Brand_Bool_Exp>;
+  brand_id?: InputMaybe<Uuid_Comparison_Exp>;
+  campaign?: InputMaybe<String_Comparison_Exp>;
+  content?: InputMaybe<String_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  medium?: InputMaybe<String_Comparison_Exp>;
+  overridable?: InputMaybe<Boolean_Comparison_Exp>;
+  source?: InputMaybe<String_Comparison_Exp>;
+  term?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "utm" */
+export enum Utm_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  UtmPkey = 'utm_pkey'
+}
+
+/** input type for inserting data into table "utm" */
+export type Utm_Insert_Input = {
+  brand?: InputMaybe<Brand_Obj_Rel_Insert_Input>;
+  brand_id?: InputMaybe<Scalars['uuid']>;
+  campaign?: InputMaybe<Scalars['String']>;
+  content?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  medium?: InputMaybe<Scalars['String']>;
+  overridable?: InputMaybe<Scalars['Boolean']>;
+  source?: InputMaybe<Scalars['String']>;
+  term?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** aggregate max on columns */
+export type Utm_Max_Fields = {
+  __typename?: 'utm_max_fields';
+  brand_id?: Maybe<Scalars['uuid']>;
+  campaign?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  medium?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  term?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** aggregate min on columns */
+export type Utm_Min_Fields = {
+  __typename?: 'utm_min_fields';
+  brand_id?: Maybe<Scalars['uuid']>;
+  campaign?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  medium?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  term?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** response of any mutation on the table "utm" */
+export type Utm_Mutation_Response = {
+  __typename?: 'utm_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Utm>;
+};
+
+/** input type for inserting object relation for remote table "utm" */
+export type Utm_Obj_Rel_Insert_Input = {
+  data: Utm_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Utm_On_Conflict>;
+};
+
+/** on_conflict condition type for table "utm" */
+export type Utm_On_Conflict = {
+  constraint: Utm_Constraint;
+  update_columns?: Array<Utm_Update_Column>;
+  where?: InputMaybe<Utm_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "utm". */
+export type Utm_Order_By = {
+  brand?: InputMaybe<Brand_Order_By>;
+  brand_id?: InputMaybe<Order_By>;
+  campaign?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  medium?: InputMaybe<Order_By>;
+  overridable?: InputMaybe<Order_By>;
+  source?: InputMaybe<Order_By>;
+  term?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: utm */
+export type Utm_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "utm" */
+export enum Utm_Select_Column {
+  /** column name */
+  BrandId = 'brand_id',
+  /** column name */
+  Campaign = 'campaign',
+  /** column name */
+  Content = 'content',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Medium = 'medium',
+  /** column name */
+  Overridable = 'overridable',
+  /** column name */
+  Source = 'source',
+  /** column name */
+  Term = 'term',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "utm" */
+export type Utm_Set_Input = {
+  brand_id?: InputMaybe<Scalars['uuid']>;
+  campaign?: InputMaybe<Scalars['String']>;
+  content?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  medium?: InputMaybe<Scalars['String']>;
+  overridable?: InputMaybe<Scalars['Boolean']>;
+  source?: InputMaybe<Scalars['String']>;
+  term?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** update columns of table "utm" */
+export enum Utm_Update_Column {
+  /** column name */
+  BrandId = 'brand_id',
+  /** column name */
+  Campaign = 'campaign',
+  /** column name */
+  Content = 'content',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Medium = 'medium',
+  /** column name */
+  Overridable = 'overridable',
+  /** column name */
+  Source = 'source',
+  /** column name */
+  Term = 'term',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -3742,7 +4077,7 @@ export type GetCtaByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetCtaByIdQuery = { __typename?: 'query_root', cta_by_pk?: { __typename?: 'cta', archived_at?: string | null, attributes: any, created_at: string, id: string, kind: Kind_Cta_Enum, updated_at: string, brand: { __typename?: 'brand', image_url?: string | null, url: string, name: string } } | null };
+export type GetCtaByIdQuery = { __typename?: 'query_root', cta_by_pk?: { __typename?: 'cta', archived_at?: string | null, attributes: any, created_at: string, id: string, kind: Kind_Cta_Enum, updated_at: string, brand: { __typename?: 'brand', image_url?: string | null, url: string, name: string, utm?: { __typename?: 'utm', source?: string | null, medium?: string | null, campaign?: string | null, term?: string | null, content?: string | null, overridable: boolean } | null } } | null };
 
 export type GetLinksByPkQueryVariables = Exact<{
   ids?: InputMaybe<Array<Scalars['uuid']> | Scalars['uuid']>;
@@ -3756,7 +4091,14 @@ export type GetLinkByShortLinkQueryVariables = Exact<{
 }>;
 
 
-export type GetLinkByShortLinkQuery = { __typename?: 'query_root', link: Array<{ __typename?: 'link', id: string, attributes: any, destinationLink?: string | null, domain_id?: string | null, expireAt?: string | null, kind: Kind_Link_Enum, shortLink: string, variablePassing: boolean, cta_id?: string | null }> };
+export type GetLinkByShortLinkQuery = { __typename?: 'query_root', link: Array<{ __typename?: 'link', id: string, attributes: any, destinationLink?: string | null, domain_id?: string | null, expireAt?: string | null, kind: Kind_Link_Enum, shortLink: string, variablePassing: boolean, add_utm: boolean, cta_id?: string | null, brand_id?: string | null, brand?: { __typename?: 'brand', utm?: { __typename?: 'utm', source?: string | null, medium?: string | null, campaign?: string | null, term?: string | null, content?: string | null, overridable: boolean } | null } | null }> };
+
+export type GetUtmByBrandIdQueryVariables = Exact<{
+  brandId: Scalars['uuid'];
+}>;
+
+
+export type GetUtmByBrandIdQuery = { __typename?: 'query_root', brand_by_pk?: { __typename?: 'brand', utm?: { __typename?: 'utm', source?: string | null, medium?: string | null, campaign?: string | null, term?: string | null, content?: string | null, overridable: boolean } | null } | null };
 
 export type UpdateLinkAttributesMutationVariables = Exact<{
   id: Scalars['uuid'];
@@ -3789,6 +4131,14 @@ export const GetCtaByIdDocument = gql`
       image_url
       url
       name
+      utm {
+        source
+        medium
+        campaign
+        term
+        content
+        overridable
+      }
     }
   }
 }
@@ -3814,7 +4164,33 @@ export const GetLinkByShortLinkDocument = gql`
     kind
     shortLink
     variablePassing
+    add_utm
     cta_id
+    brand_id
+    brand {
+      utm {
+        source
+        medium
+        campaign
+        term
+        content
+        overridable
+      }
+    }
+  }
+}
+    `;
+export const GetUtmByBrandIdDocument = gql`
+    query getUtmByBrandId($brandId: uuid!) {
+  brand_by_pk(id: $brandId) {
+    utm {
+      source
+      medium
+      campaign
+      term
+      content
+      overridable
+    }
   }
 }
     `;
@@ -3856,6 +4232,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getLinkByShortLink(variables?: GetLinkByShortLinkQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLinkByShortLinkQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLinkByShortLinkQuery>(GetLinkByShortLinkDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getLinkByShortLink', 'query');
+    },
+    getUtmByBrandId(variables: GetUtmByBrandIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUtmByBrandIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetUtmByBrandIdQuery>(GetUtmByBrandIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUtmByBrandId', 'query');
     },
     updateLinkAttributes(variables: UpdateLinkAttributesMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateLinkAttributesMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateLinkAttributesMutation>(UpdateLinkAttributesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateLinkAttributes', 'mutation');

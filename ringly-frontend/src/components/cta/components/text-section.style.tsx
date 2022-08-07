@@ -2,16 +2,18 @@ import { useFetcher } from '@remix-run/react';
 import * as React from 'react';
 import { Kind_Cta_Enum } from 'src/client';
 import type { CtaDataButton, CtaDataForm } from 'src/types';
+import { generateUTMUrl } from 'src/utils';
 import { kindClasses } from '../styles';
 
 interface Props {
   ctaAttributes: CtaDataButton['attributes'] | CtaDataForm['attributes'];
+  brand: CtaDataButton['brand'] | CtaDataForm['brand'];
   kind: Kind_Cta_Enum;
   ctaId: string;
   linkId: string;
 }
 
-export const TextSection: React.FC<Props> = ({ ctaAttributes, kind, ctaId, linkId }) => {
+export const TextSection: React.FC<Props> = ({ ctaAttributes, kind, ctaId, linkId, brand }) => {
   const fetcher = useFetcher();
   const { style } = ctaAttributes;
   const ref = React.useRef<HTMLFormElement>(null);
@@ -106,7 +108,7 @@ export const TextSection: React.FC<Props> = ({ ctaAttributes, kind, ctaId, linkI
         <a
           style={kindStyles[kind]}
           className={`h-9 w-auto min-w-[80px] ml-4 py-0 whitespace-nowrap cursor-pointer leading-8 font-normal text-center ${kindClasses[kind]}`}
-          href={ctaAttributes.url}
+          href={generateUTMUrl(ctaAttributes.url, brand.utm!)}
           target="_blank"
           rel="noreferrer"
         >

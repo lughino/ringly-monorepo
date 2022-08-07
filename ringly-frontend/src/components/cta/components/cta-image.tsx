@@ -3,6 +3,7 @@ import type { Kind_Cta_Enum } from 'src/client';
 import type { CtaDataImage } from 'src/types';
 import { positionClasses } from '../styles';
 import { ActionSection } from './action-section.style';
+import { generateUTMUrl } from 'src/utils';
 
 interface Props {
   cta: CtaDataImage;
@@ -14,6 +15,7 @@ interface Props {
 export function CtaImage({
   cta: {
     attributes: { style, url, imageUrl },
+    brand: { utm },
   },
   clickLogo,
   closeBanner,
@@ -26,7 +28,7 @@ export function CtaImage({
     >
       <div className="flex justify-start items-center p-2 rounded-[50px] relative">
         <a
-          href={url}
+          href={generateUTMUrl(url, utm!)}
           title="image"
           target="_blank"
           className="border-none pointer-events-auto shadow-none rounded-[50px] outline-none"

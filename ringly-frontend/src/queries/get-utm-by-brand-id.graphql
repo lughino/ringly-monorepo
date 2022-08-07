@@ -1,0 +1,12 @@
+query getUtmByBrandId($brandId: uuid!) {
+  brand_by_pk(id: $brandId) {
+    utm {
+      source
+      medium
+      campaign
+      term
+      content
+      overridable
+    }
+  }
+}

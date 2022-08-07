@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import { parse } from 'node-html-parser';
 import type { HTMLElement } from 'node-html-parser';
 import type { CtaMetaData, CtaLink } from 'src/types';
+import type { Utm } from 'src/client';
 import { gqlSdk } from 'src/client';
 
 export const isServer = (): boolean => typeof document === 'undefined';
@@ -121,4 +122,25 @@ export const updateLinkMetadata = async (
 
     return data.update_link_by_pk;
   }
+};
+
+export const generateUTMUrl = (url: string, utmParams?: Partial<Utm>) => {
+  if (!utmParams) {
+    return url;
+  }
+  const { overridable = true, campaign, content, source, term, medium } = utmParams;
+  const urlToSend = new URL(url);
+  const currentParams = Object.fromEntries(urlToSend.searchParams.entries());
+  const defaultParams = {
+    ...(campaign && { utm_campaign: campaign }),
+    ...(content && { utm_content: content }),
+    ...(medium && { utm_medium: medium }),
+    ...(source && { utm_source: source }),
+    ...(term && { utm_term: term }),
+  };
+  const newParamsToSend = new URLSearchParams(
+    overridable ? { ...defaultParams, ...currentParams } : { ...currentParams, ...defaultParams },
+  ).toString();
+
+  return new URL(`${urlToSend.origin}${urlToSend.pathname}?${newParamsToSend}`).toString();
 };

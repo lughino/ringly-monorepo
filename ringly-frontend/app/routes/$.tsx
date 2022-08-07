@@ -15,7 +15,7 @@ import type {
   RedirectLink,
   CtaLink,
 } from 'src/types';
-import { updateLinkMetadata } from 'src/utils';
+import { generateUTMUrl, updateLinkMetadata } from 'src/utils';
 import { Cta } from 'src/components/cta';
 
 const appendParams = R.cond([
@@ -26,16 +26,23 @@ const appendParams = R.cond([
 type LoaderData = LoaderDataLinkInBio | LoaderDataRedirect | LoaderDataCta;
 
 const redirectAction = async (linkFound: RedirectLink, params: string) => {
-  const destLink = linkFound.variablePassing
-    ? appendParams(linkFound.destinationLink!, params)
-    : linkFound.destinationLink!;
+  let destLink =
+    linkFound.variablePassing && params
+      ? appendParams(linkFound.destinationLink!, params)
+      : linkFound.destinationLink!;
+
+  if (linkFound.add_utm) {
+    destLink = generateUTMUrl(destLink, linkFound.brand?.utm!);
+  }
 
   return redirect(destLink, {
     status: (linkFound as LoaderDataRedirect['link']).attributes.code || 301,
   });
 };
+
 const dynamicLinkAction = async (linkFound: DataLink, params: string) =>
   new Response('Dynamic link');
+
 const linkInBioAction = async (linkFound: LinkInBioLink, params: string) => {
   const getIds = R.pipe<[LinkInBioAttributesLink[]], LinkInBioAttributesLink[], string[]>(
     R.filter<LinkInBioAttributesLink>(
@@ -61,15 +68,17 @@ const linkInBioAction = async (linkFound: LinkInBioLink, params: string) => {
 
   return json({ link });
 };
+
 const ctaAction = async (linkFound: CtaLink, params: string) => {
-  updateLinkMetadata(linkFound);
   const { cta_by_pk } = await gqlSdk.getCtaById({ id: linkFound.cta_id! });
+  updateLinkMetadata(linkFound);
 
   return json({
     link: linkFound,
     cta: cta_by_pk,
   });
 };
+
 const mobileDeepLinkAction = async (linkFound: DataLink, params: string) =>
   new Response('Mobile Deep link');
 
