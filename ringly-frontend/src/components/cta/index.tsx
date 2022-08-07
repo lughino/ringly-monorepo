@@ -31,7 +31,9 @@ export function Cta({ data: { link, cta } }: Props) {
     destinationLink,
   } = link;
   const fullWidthStyle =
-    cta.attributes.style.theme === 'full-width' ? getFullWidthStyle(cta.attributes.style) : null;
+    'theme' in cta.attributes.style && cta.attributes.style.theme === 'full-width'
+      ? getFullWidthStyle(cta.attributes.style)
+      : null;
 
   return (
     <>
@@ -58,7 +60,7 @@ export function Cta({ data: { link, cta } }: Props) {
         style={{ WebkitOverflowScrolling: 'touch', ...fullWidthStyle }}
         title="SiteFrame"
       ></iframe>
-      <CtaBanner cta={cta} />
+      <CtaBanner cta={cta} linkId={link.id} />
     </>
   );
 }

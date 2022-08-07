@@ -383,6 +383,10 @@ export type Cta = {
   links: Array<Link>;
   /** An aggregate relationship */
   links_aggregate: Link_Aggregate;
+  /** An array relationship */
+  marketing_data: Array<Marketing_Data>;
+  /** An aggregate relationship */
+  marketing_data_aggregate: Marketing_Data_Aggregate;
   updated_at: Scalars['timestamptz'];
 };
 
@@ -410,6 +414,26 @@ export type CtaLinks_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Link_Order_By>>;
   where?: InputMaybe<Link_Bool_Exp>;
+};
+
+
+/** Call To Action Table */
+export type CtaMarketing_DataArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+
+/** Call To Action Table */
+export type CtaMarketing_Data_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
 };
 
 /** aggregated selection of "cta" */
@@ -467,6 +491,7 @@ export type Cta_Bool_Exp = {
   kind?: InputMaybe<Kind_Cta_Enum_Comparison_Exp>;
   kindCta?: InputMaybe<Kind_Cta_Bool_Exp>;
   links?: InputMaybe<Link_Bool_Exp>;
+  marketing_data?: InputMaybe<Marketing_Data_Bool_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
@@ -502,6 +527,7 @@ export type Cta_Insert_Input = {
   kind?: InputMaybe<Kind_Cta_Enum>;
   kindCta?: InputMaybe<Kind_Cta_Obj_Rel_Insert_Input>;
   links?: InputMaybe<Link_Arr_Rel_Insert_Input>;
+  marketing_data?: InputMaybe<Marketing_Data_Arr_Rel_Insert_Input>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -577,6 +603,7 @@ export type Cta_Order_By = {
   kind?: InputMaybe<Order_By>;
   kindCta?: InputMaybe<Kind_Cta_Order_By>;
   links_aggregate?: InputMaybe<Link_Aggregate_Order_By>;
+  marketing_data_aggregate?: InputMaybe<Marketing_Data_Aggregate_Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -972,6 +999,8 @@ export enum Kind_Cta_Enum {
   Form = 'FORM',
   /** Hidden CTA */
   Hidden = 'HIDDEN',
+  /** Image CTA */
+  Image = 'IMAGE',
   /** Text CTA */
   Text = 'TEXT'
 }
@@ -1256,6 +1285,10 @@ export type Link = {
   /** An object relationship */
   kindByKind: Kind_Link;
   label?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  marketing_data: Array<Marketing_Data>;
+  /** An aggregate relationship */
+  marketing_data_aggregate: Marketing_Data_Aggregate;
   shortLink: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['timestamptz'];
@@ -1266,6 +1299,26 @@ export type Link = {
 /** The core table of the application that stores the information related to the links */
 export type LinkAttributesArgs = {
   path?: InputMaybe<Scalars['String']>;
+};
+
+
+/** The core table of the application that stores the information related to the links */
+export type LinkMarketing_DataArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+
+/** The core table of the application that stores the information related to the links */
+export type LinkMarketing_Data_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
 };
 
 /** aggregated selection of "link" */
@@ -1329,6 +1382,7 @@ export type Link_Bool_Exp = {
   kind?: InputMaybe<Kind_Link_Enum_Comparison_Exp>;
   kindByKind?: InputMaybe<Kind_Link_Bool_Exp>;
   label?: InputMaybe<String_Comparison_Exp>;
+  marketing_data?: InputMaybe<Marketing_Data_Bool_Exp>;
   shortLink?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -1375,6 +1429,7 @@ export type Link_Insert_Input = {
   kind?: InputMaybe<Kind_Link_Enum>;
   kindByKind?: InputMaybe<Kind_Link_Obj_Rel_Insert_Input>;
   label?: InputMaybe<Scalars['String']>;
+  marketing_data?: InputMaybe<Marketing_Data_Arr_Rel_Insert_Input>;
   shortLink?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamptz']>;
@@ -1456,6 +1511,13 @@ export type Link_Mutation_Response = {
   returning: Array<Link>;
 };
 
+/** input type for inserting object relation for remote table "link" */
+export type Link_Obj_Rel_Insert_Input = {
+  data: Link_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Link_On_Conflict>;
+};
+
 /** on_conflict condition type for table "link" */
 export type Link_On_Conflict = {
   constraint: Link_Constraint;
@@ -1480,6 +1542,7 @@ export type Link_Order_By = {
   kind?: InputMaybe<Order_By>;
   kindByKind?: InputMaybe<Kind_Link_Order_By>;
   label?: InputMaybe<Order_By>;
+  marketing_data_aggregate?: InputMaybe<Marketing_Data_Aggregate_Order_By>;
   shortLink?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
@@ -1583,6 +1646,207 @@ export enum Link_Update_Column {
   VariablePassing = 'variablePassing'
 }
 
+/** A table containing the marketing data from a CTA */
+export type Marketing_Data = {
+  __typename?: 'marketing_data';
+  created_at: Scalars['timestamptz'];
+  /** An object relationship */
+  cta: Cta;
+  cta_id: Scalars['uuid'];
+  email: Scalars['String'];
+  id: Scalars['uuid'];
+  /** An object relationship */
+  link: Link;
+  link_id: Scalars['uuid'];
+  updated_at: Scalars['timestamptz'];
+};
+
+/** aggregated selection of "marketing_data" */
+export type Marketing_Data_Aggregate = {
+  __typename?: 'marketing_data_aggregate';
+  aggregate?: Maybe<Marketing_Data_Aggregate_Fields>;
+  nodes: Array<Marketing_Data>;
+};
+
+/** aggregate fields of "marketing_data" */
+export type Marketing_Data_Aggregate_Fields = {
+  __typename?: 'marketing_data_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Marketing_Data_Max_Fields>;
+  min?: Maybe<Marketing_Data_Min_Fields>;
+};
+
+
+/** aggregate fields of "marketing_data" */
+export type Marketing_Data_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "marketing_data" */
+export type Marketing_Data_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Marketing_Data_Max_Order_By>;
+  min?: InputMaybe<Marketing_Data_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "marketing_data" */
+export type Marketing_Data_Arr_Rel_Insert_Input = {
+  data: Array<Marketing_Data_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Marketing_Data_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "marketing_data". All fields are combined with a logical 'AND'. */
+export type Marketing_Data_Bool_Exp = {
+  _and?: InputMaybe<Array<Marketing_Data_Bool_Exp>>;
+  _not?: InputMaybe<Marketing_Data_Bool_Exp>;
+  _or?: InputMaybe<Array<Marketing_Data_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  cta?: InputMaybe<Cta_Bool_Exp>;
+  cta_id?: InputMaybe<Uuid_Comparison_Exp>;
+  email?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  link?: InputMaybe<Link_Bool_Exp>;
+  link_id?: InputMaybe<Uuid_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "marketing_data" */
+export enum Marketing_Data_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  MarketingDataPkey = 'marketing_data_pkey'
+}
+
+/** input type for inserting data into table "marketing_data" */
+export type Marketing_Data_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  cta?: InputMaybe<Cta_Obj_Rel_Insert_Input>;
+  cta_id?: InputMaybe<Scalars['uuid']>;
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  link?: InputMaybe<Link_Obj_Rel_Insert_Input>;
+  link_id?: InputMaybe<Scalars['uuid']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** aggregate max on columns */
+export type Marketing_Data_Max_Fields = {
+  __typename?: 'marketing_data_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  cta_id?: Maybe<Scalars['uuid']>;
+  email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  link_id?: Maybe<Scalars['uuid']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by max() on columns of table "marketing_data" */
+export type Marketing_Data_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  cta_id?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  link_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Marketing_Data_Min_Fields = {
+  __typename?: 'marketing_data_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  cta_id?: Maybe<Scalars['uuid']>;
+  email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  link_id?: Maybe<Scalars['uuid']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by min() on columns of table "marketing_data" */
+export type Marketing_Data_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  cta_id?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  link_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "marketing_data" */
+export type Marketing_Data_Mutation_Response = {
+  __typename?: 'marketing_data_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Marketing_Data>;
+};
+
+/** on_conflict condition type for table "marketing_data" */
+export type Marketing_Data_On_Conflict = {
+  constraint: Marketing_Data_Constraint;
+  update_columns?: Array<Marketing_Data_Update_Column>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "marketing_data". */
+export type Marketing_Data_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  cta?: InputMaybe<Cta_Order_By>;
+  cta_id?: InputMaybe<Order_By>;
+  email?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  link?: InputMaybe<Link_Order_By>;
+  link_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: marketing_data */
+export type Marketing_Data_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "marketing_data" */
+export enum Marketing_Data_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  CtaId = 'cta_id',
+  /** column name */
+  Email = 'email',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LinkId = 'link_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "marketing_data" */
+export type Marketing_Data_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  cta_id?: InputMaybe<Scalars['uuid']>;
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  link_id?: InputMaybe<Scalars['uuid']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** update columns of table "marketing_data" */
+export enum Marketing_Data_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  CtaId = 'cta_id',
+  /** column name */
+  Email = 'email',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LinkId = 'link_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -1610,6 +1874,10 @@ export type Mutation_Root = {
   delete_link?: Maybe<Link_Mutation_Response>;
   /** delete single row from the table: "link" */
   delete_link_by_pk?: Maybe<Link>;
+  /** delete data from the table: "marketing_data" */
+  delete_marketing_data?: Maybe<Marketing_Data_Mutation_Response>;
+  /** delete single row from the table: "marketing_data" */
+  delete_marketing_data_by_pk?: Maybe<Marketing_Data>;
   /** delete data from the table: "tenant" */
   delete_tenant?: Maybe<Tenant_Mutation_Response>;
   /** delete single row from the table: "tenant" */
@@ -1646,6 +1914,10 @@ export type Mutation_Root = {
   insert_link?: Maybe<Link_Mutation_Response>;
   /** insert a single row into the table: "link" */
   insert_link_one?: Maybe<Link>;
+  /** insert data into the table: "marketing_data" */
+  insert_marketing_data?: Maybe<Marketing_Data_Mutation_Response>;
+  /** insert a single row into the table: "marketing_data" */
+  insert_marketing_data_one?: Maybe<Marketing_Data>;
   /** insert data into the table: "tenant" */
   insert_tenant?: Maybe<Tenant_Mutation_Response>;
   /** insert a single row into the table: "tenant" */
@@ -1682,6 +1954,10 @@ export type Mutation_Root = {
   update_link?: Maybe<Link_Mutation_Response>;
   /** update single row of the table: "link" */
   update_link_by_pk?: Maybe<Link>;
+  /** update data of the table: "marketing_data" */
+  update_marketing_data?: Maybe<Marketing_Data_Mutation_Response>;
+  /** update single row of the table: "marketing_data" */
+  update_marketing_data_by_pk?: Maybe<Marketing_Data>;
   /** update data of the table: "tenant" */
   update_tenant?: Maybe<Tenant_Mutation_Response>;
   /** update single row of the table: "tenant" */
@@ -1765,6 +2041,18 @@ export type Mutation_RootDelete_LinkArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Link_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Marketing_DataArgs = {
+  where: Marketing_Data_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Marketing_Data_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -1886,6 +2174,20 @@ export type Mutation_RootInsert_LinkArgs = {
 export type Mutation_RootInsert_Link_OneArgs = {
   object: Link_Insert_Input;
   on_conflict?: InputMaybe<Link_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Marketing_DataArgs = {
+  objects: Array<Marketing_Data_Insert_Input>;
+  on_conflict?: InputMaybe<Marketing_Data_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Marketing_Data_OneArgs = {
+  object: Marketing_Data_Insert_Input;
+  on_conflict?: InputMaybe<Marketing_Data_On_Conflict>;
 };
 
 
@@ -2036,6 +2338,20 @@ export type Mutation_RootUpdate_Link_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Marketing_DataArgs = {
+  _set?: InputMaybe<Marketing_Data_Set_Input>;
+  where: Marketing_Data_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Marketing_Data_By_PkArgs = {
+  _set?: InputMaybe<Marketing_Data_Set_Input>;
+  pk_columns: Marketing_Data_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_TenantArgs = {
   _set?: InputMaybe<Tenant_Set_Input>;
   where: Tenant_Bool_Exp;
@@ -2132,6 +2448,12 @@ export type Query_Root = {
   link_aggregate: Link_Aggregate;
   /** fetch data from the table: "link" using primary key columns */
   link_by_pk?: Maybe<Link>;
+  /** An array relationship */
+  marketing_data: Array<Marketing_Data>;
+  /** An aggregate relationship */
+  marketing_data_aggregate: Marketing_Data_Aggregate;
+  /** fetch data from the table: "marketing_data" using primary key columns */
+  marketing_data_by_pk?: Maybe<Marketing_Data>;
   /** fetch data from the table: "tenant" */
   tenant: Array<Tenant>;
   /** fetch aggregated fields from the table: "tenant" */
@@ -2291,6 +2613,29 @@ export type Query_RootLink_By_PkArgs = {
 };
 
 
+export type Query_RootMarketing_DataArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+
+export type Query_RootMarketing_Data_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+
+export type Query_RootMarketing_Data_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
 export type Query_RootTenantArgs = {
   distinct_on?: InputMaybe<Array<Tenant_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -2397,6 +2742,12 @@ export type Subscription_Root = {
   link_aggregate: Link_Aggregate;
   /** fetch data from the table: "link" using primary key columns */
   link_by_pk?: Maybe<Link>;
+  /** An array relationship */
+  marketing_data: Array<Marketing_Data>;
+  /** An aggregate relationship */
+  marketing_data_aggregate: Marketing_Data_Aggregate;
+  /** fetch data from the table: "marketing_data" using primary key columns */
+  marketing_data_by_pk?: Maybe<Marketing_Data>;
   /** fetch data from the table: "tenant" */
   tenant: Array<Tenant>;
   /** fetch aggregated fields from the table: "tenant" */
@@ -2552,6 +2903,29 @@ export type Subscription_RootLink_AggregateArgs = {
 
 
 export type Subscription_RootLink_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootMarketing_DataArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+
+export type Subscription_RootMarketing_Data_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Marketing_Data_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Marketing_Data_Order_By>>;
+  where?: InputMaybe<Marketing_Data_Bool_Exp>;
+};
+
+
+export type Subscription_RootMarketing_Data_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -3354,6 +3728,15 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type CreateMarketingDataMutationVariables = Exact<{
+  cta_id: Scalars['uuid'];
+  email: Scalars['String'];
+  link_id: Scalars['uuid'];
+}>;
+
+
+export type CreateMarketingDataMutation = { __typename?: 'mutation_root', insert_marketing_data_one?: { __typename?: 'marketing_data', id: string } | null };
+
 export type GetCtaByIdQueryVariables = Exact<{
   id: Scalars['uuid'];
 }>;
@@ -3384,6 +3767,15 @@ export type UpdateLinkAttributesMutationVariables = Exact<{
 export type UpdateLinkAttributesMutation = { __typename?: 'mutation_root', update_link_by_pk?: { __typename?: 'link', attributes: any, destinationLink?: string | null, domain_id?: string | null, expireAt?: string | null, id: string, kind: Kind_Link_Enum, createdAt: string, shortLink: string, updatedAt: string, variablePassing: boolean, label?: string | null, title?: string | null, cta_id?: string | null } | null };
 
 
+export const CreateMarketingDataDocument = gql`
+    mutation createMarketingData($cta_id: uuid!, $email: String!, $link_id: uuid!) {
+  insert_marketing_data_one(
+    object: {email: $email, cta_id: $cta_id, link_id: $link_id}
+  ) {
+    id
+  }
+}
+    `;
 export const GetCtaByIdDocument = gql`
     query getCtaById($id: uuid!) {
   cta_by_pk(id: $id) {
@@ -3453,6 +3845,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    createMarketingData(variables: CreateMarketingDataMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateMarketingDataMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateMarketingDataMutation>(CreateMarketingDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createMarketingData', 'mutation');
+    },
     getCtaById(variables: GetCtaByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCtaByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCtaByIdQuery>(GetCtaByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCtaById', 'query');
     },

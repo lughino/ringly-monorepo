@@ -113,7 +113,6 @@ export const updateLinkMetadata = async (
   const date = new Date(link.attributes.destinationLinkMetadata.lastUpdate).getTime();
   if (isDataExpired(date)) {
     const meta = await getURLMetadata(link.destinationLink!);
-    console.log(JSON.stringify(meta, null, 2));
     const { id } = link;
     const data = await gqlSdk.updateLinkAttributes({
       id,

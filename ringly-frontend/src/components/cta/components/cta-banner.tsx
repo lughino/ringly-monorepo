@@ -1,15 +1,16 @@
-import * as R from 'ramda';
 import type { MouseEvent } from 'react';
 import { useState } from 'react';
-import type { LoaderDataCta } from 'src/types';
+import type { CtaDataButton, CtaDataForm, CtaDataImage, LoaderDataCta } from 'src/types';
 import { Kind_Cta_Enum } from 'src/client';
 import { CtaButton } from './cta-button';
+import { CtaImage } from './cta-image';
 
 interface Props {
   cta: LoaderDataCta['cta'];
+  linkId: string;
 }
 
-export function CtaBanner({ cta }: Props) {
+export function CtaBanner({ cta, linkId }: Props) {
   const [isBannerClosed, setBannerToClose] = useState(false);
   const closeBanner = (e: MouseEvent) => {
     e.preventDefault();
@@ -23,44 +24,32 @@ export function CtaBanner({ cta }: Props) {
     return null;
   }
 
-  const CtaComponent = R.cond([
-    [
-      R.equals(Kind_Cta_Enum.Button),
-      R.always(() => (
-        <CtaButton
-          cta={cta}
-          kind={Kind_Cta_Enum.Button}
-          closeBanner={closeBanner}
-          clickLogo={clickLogo}
-        />
-      )),
-    ],
-    [
-      R.equals(Kind_Cta_Enum.Text),
-      R.always(() => (
-        <CtaButton
-          cta={cta}
-          kind={Kind_Cta_Enum.Text}
-          closeBanner={closeBanner}
-          clickLogo={clickLogo}
-        />
-      )),
-    ],
-    [
-      R.equals(Kind_Cta_Enum.Form),
-      R.always(() => (
-        // TODO: implement form component
-        <CtaButton
-          cta={cta}
-          kind={Kind_Cta_Enum.Form}
-          closeBanner={closeBanner}
-          clickLogo={clickLogo}
-        />
-      )),
-    ],
-    // @ts-ignore
-    [R.equals(Kind_Cta_Enum.Hidden), R.always(() => null)],
-  ])(cta.kind) as React.FC;
+  if (
+    cta.kind === Kind_Cta_Enum.Button ||
+    cta.kind === Kind_Cta_Enum.Text ||
+    cta.kind === Kind_Cta_Enum.Form
+  ) {
+    return (
+      <CtaButton
+        cta={cta as CtaDataButton | CtaDataForm}
+        kind={cta.kind}
+        closeBanner={closeBanner}
+        clickLogo={clickLogo}
+        linkId={linkId}
+      />
+    );
+  } else if (cta.kind === Kind_Cta_Enum.Image) {
+    return (
+      <CtaImage
+        cta={cta as CtaDataImage}
+        kind={cta.kind}
+        closeBanner={closeBanner}
+        clickLogo={clickLogo}
+      />
+    );
+  } else if (cta.kind === Kind_Cta_Enum.Hidden) {
+    return null;
+  }
 
-  return <CtaComponent />;
+  return null;
 }

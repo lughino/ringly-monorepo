@@ -1,0 +1,5 @@
+mutation createMarketingData($cta_id: uuid!, $email: String!, $link_id: uuid!) {
+  insert_marketing_data_one(object: { email: $email, cta_id: $cta_id, link_id: $link_id }) {
+    id
+  }
+}

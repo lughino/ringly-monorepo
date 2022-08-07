@@ -16,4 +16,5 @@ export const kindClasses = {
   [Kind_Cta_Enum.Text]: 'underline',
   [Kind_Cta_Enum.Form]: '',
   [Kind_Cta_Enum.Hidden]: '',
+  [Kind_Cta_Enum.Image]: '',
 };

@@ -83,8 +83,21 @@ export interface DataLink<T = unknown>
 
 export type CtaLink = DataLink<CtaAttributes>;
 
-export interface CtaData<T = unknown> extends Omit<GetCtaByIdQuery['cta_by_pk'], 'attributes'> {
+type CtaQueryById = NonNullable<Required<GetCtaByIdQuery['cta_by_pk']>>;
+
+export type CtaData<T = unknown> = Omit<CtaQueryById, 'attributes'> & {
   attributes: T;
+};
+
+export interface CtaImageStyle {
+  hideRinglyLogo: boolean;
+  position:
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'center-left'
+    | 'center-right';
 }
 
 export interface CtaStyle {
@@ -105,6 +118,12 @@ export interface CtaStyle {
     | 'bottom-full-width';
 }
 
+export type CtaDataImage = CtaData<{
+  style: CtaImageStyle;
+  url: string;
+  imageUrl: string;
+}>;
+
 export type CtaDataButton = CtaData<{
   style: CtaStyle;
   message: string;
@@ -112,9 +131,15 @@ export type CtaDataButton = CtaData<{
   text: string;
 }>;
 
+export type CtaDataForm = CtaData<{
+  style: CtaStyle;
+  message: string;
+  placeholderText: string;
+}>;
+
 export interface LoaderDataCta {
   link: CtaLink;
-  cta: CtaDataButton;
+  cta: CtaDataButton | CtaDataForm | CtaDataImage;
 }
 
 export type LinkInBioLink = DataLink<LinkInBioAttributes<LinkInBioAttributesLink>>;

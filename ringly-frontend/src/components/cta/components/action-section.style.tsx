@@ -8,11 +8,12 @@ interface Props {
 }
 
 export const ActionSection: React.FC<Props> = ({ style, clickLogo, closeBanner }) => {
+  const textColorStyle = 'textColor' in style ? { color: style.textColor } : {};
   return (
     <div className="flex justify-start">
       {!style.hideRinglyLogo && (
         <a
-          style={{ color: style.textColor }}
+          style={textColorStyle}
           onClick={clickLogo}
           className="px-1 cursor-pointer opacity-60"
           href="https://ringly.com?utm_campaign=ringlylogo"
@@ -23,7 +24,7 @@ export const ActionSection: React.FC<Props> = ({ style, clickLogo, closeBanner }
         </a>
       )}
       <a
-        style={{ color: style.textColor }}
+        style={textColorStyle}
         className="px-1 cursor-pointer opacity-40 w-5 mt-[3px]"
         href="/whats-this"
         target="_blank"
@@ -34,7 +35,7 @@ export const ActionSection: React.FC<Props> = ({ style, clickLogo, closeBanner }
         </svg>
       </a>
       <a
-        style={{ color: style.textColor }}
+        style={textColorStyle}
         href="#close"
         onClick={closeBanner}
         className="px-1 opacity-40 cursor-pointer w-5 mt-[3px]"

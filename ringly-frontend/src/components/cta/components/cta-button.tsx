@@ -1,40 +1,42 @@
 import type { MouseEvent } from 'react';
-import type { LoaderDataCta } from 'src/types';
+import type { CtaDataButton, CtaDataForm } from 'src/types';
 import type { Kind_Cta_Enum } from 'src/client';
 import { positionClasses } from '../styles';
 import { ActionSection } from './action-section.style';
 import { TextSection } from './text-section.style';
 
 interface Props {
-  cta: LoaderDataCta['cta'];
+  cta: CtaDataButton | CtaDataForm;
   kind: Kind_Cta_Enum;
+  linkId: string;
   closeBanner: (e: MouseEvent) => void;
   clickLogo: () => void;
 }
 
 export function CtaButton({
-  cta: {
-    attributes: { style, message, text, url },
-    brand,
-  },
+  cta: { attributes, brand, id },
   kind,
   closeBanner,
   clickLogo,
+  linkId,
 }: Props) {
-  if (style.theme === 'full-width') {
+  const { style } = attributes;
+  const customStyle =
+    'backgroundColor' in style
+      ? {
+          backgroundColor: style.backgroundColor,
+          color: style.textColor,
+        }
+      : {};
+
+  if ('theme' in style && style.theme === 'full-width') {
     return (
       <div
         className={`fixed w-auto opacity-100 border-0 bg-transparent rounded-none shadow-none cursor-auto m-auto min-w-0 min-h-0 outline-0 p-0 pointer-events-auto font-['Open_Sans'] ${
           positionClasses[style.position]
         }`}
       >
-        <div
-          style={{
-            backgroundColor: style.backgroundColor,
-            color: style.textColor,
-          }}
-          className="flex justify-start items-center"
-        >
+        <div style={customStyle} className="flex justify-start items-center">
           <div className="flex">
             <a
               className="border-none pointer-events-auto shadow-none outline-none"
@@ -60,7 +62,7 @@ export function CtaButton({
                 {brand.name}
               </a>
             </div>
-            <TextSection message={message} text={text} url={url} style={style} kind={kind} />
+            <TextSection ctaAttributes={attributes} kind={kind} ctaId={id} linkId={linkId} />
             <ActionSection style={style} clickLogo={clickLogo} closeBanner={closeBanner} />
           </div>
         </div>
@@ -74,13 +76,7 @@ export function CtaButton({
         positionClasses[style.position]
       }`}
     >
-      <div
-        style={{
-          backgroundColor: style.backgroundColor,
-          color: style.textColor,
-        }}
-        className="flex justify-start items-center p-2 rounded-[50px]"
-      >
+      <div style={customStyle} className="flex justify-start items-center p-2 rounded-[50px]">
         <div className="flex">
           <a
             className="border-none pointer-events-auto shadow-none rounded-[50px] outline-none"
@@ -107,7 +103,7 @@ export function CtaButton({
             </a>
             <ActionSection style={style} clickLogo={clickLogo} closeBanner={closeBanner} />
           </div>
-          <TextSection message={message} text={text} url={url} style={style} kind={kind} />
+          <TextSection ctaAttributes={attributes} kind={kind} ctaId={id} linkId={linkId} />
         </div>
       </div>
     </div>
