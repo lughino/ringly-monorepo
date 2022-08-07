@@ -1,0 +1,37 @@
+{
+  "name": "ringly-monorepo",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "format": "nx run-many --targer=format",
+    "dev-frontend": "nx dev frontend",
+    "dev-dashboard": "nx dev dashboard",
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test"
+  },
+  "private": true,
+  "dependencies": {
+    "@nrwl/remix": "14.4.2"
+  },
+  "devDependencies": {
+    "@nrwl/cli": "14.5.4",
+    "@nrwl/workspace": "14.5.4",
+    "@remix-run/eslint-config": "^1.6.7",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "concurrently": "^7.3.0",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.20.0",
+    "nx": "14.5.4",
+    "prettier": "^2.6.2",
+    "typescript": "~4.7.4"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/**/*"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}

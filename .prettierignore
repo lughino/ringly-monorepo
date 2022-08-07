@@ -1,0 +1,10 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage
+/build
+/public/build
+/apps/**/dist
+/apps/**/coverage
+/apps/**/build
+/apps/**/public/build

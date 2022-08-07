@@ -1,0 +1,25 @@
+{
+  "name": "@ringly/environment",
+  "description": "Environment utils",
+  "license": "",
+  "version": "0.0.1",
+  "private": true,
+  "sideEffects": false,
+  "main": "src/index.ts",
+  "scripts": {
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx}'"
+  },
+  "dependencies": {
+    "ramda": "^0.28.0",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.28.15",
+    "@types/react": "^17.0.47",
+    "@types/react-dom": "^17.0.17",
+    "typescript": "^4.7.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
